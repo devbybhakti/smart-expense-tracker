@@ -89,6 +89,34 @@ function displayTransactions() {
             (t.type === "income" ? "+ ₹" : "- ₹") +
             t.amount.toFixed(2);
 
+const editButton = document.createElement("button");
+editButton.textContent = "Edit";
+editButton.className = "edit-btn";
+
+editButton.addEventListener("click", () => {
+    const newDescription = prompt("Enter new description:", t.description);
+
+    if (newDescription === null) return;
+
+    const newAmount = prompt("Enter new amount:", t.amount);
+
+    if (newAmount === null) return;
+
+    const updatedAmount = Number(newAmount);
+
+    if (!newDescription.trim() || !Number.isFinite(updatedAmount) || updatedAmount <= 0) {
+        alert("Please enter valid details.");
+        return;
+    }
+
+    t.description = newDescription.trim();
+    t.amount = updatedAmount;
+
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+
+    updateDashboard();
+});
+
         const deleteButton = document.createElement("button");
         deleteButton.className = "delete-btn";
         deleteButton.textContent = "Delete";
@@ -97,7 +125,7 @@ function displayTransactions() {
             deleteTransaction(t.id);
         });
 
-        item.append(details, amount, deleteButton);
+        item.append(details, amount, editButton, deleteButton);
         transactionList.appendChild(item);
     });
 }
