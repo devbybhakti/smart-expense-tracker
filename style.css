@@ -213,3 +213,25 @@ canvas {
         font-size: 25px;
     }
 }
+.transaction-filters {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.transaction-filters input,
+.transaction-filters select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+}
+
+@media (max-width: 650px) {
+    .transaction-filters {
+        grid-template-columns: 1fr;
+    }
+}
