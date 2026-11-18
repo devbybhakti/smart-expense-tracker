@@ -141,7 +141,8 @@ function displayTransactions() {
         item.append(details, amount, editButton, deleteButton);
         transactionList.appendChild(item);
     });
-}  
+} 
+
 // Add a new transaction
 form.addEventListener("submit", function(event) {
     event.preventDefault();
