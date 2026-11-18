@@ -6,7 +6,9 @@ const typeInput = document.getElementById("type");
 const categoryInput = document.getElementById("category");
 const dateInput = document.getElementById("date");
 const transactionList = document.getElementById("transaction-list");
-
+const searchInput = document.getElementById("search-transaction");
+const filterType = document.getElementById("filter-type");
+const filterCategory = document.getElementById("filter-category");
 let transactions = [];
 
 try {
