@@ -54,3 +54,6 @@ The Smart Expense Tracker helps users manage their personal finances by recordin
 **Bhakti Ranmale**
 
 Information Technology Student
+## 📸 Project Screenshot
+
+![Smart Expense Tracker Dashboard](dashboard.png)
