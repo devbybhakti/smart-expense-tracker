@@ -198,3 +198,86 @@ function updateDashboard() {
 
 // Load saved data when page opens
 updateDashboard();
+
+// MONTHLY BUDGET FEATURE
+
+const budgetInput = document.getElementById("budget-amount");
+const saveBudgetButton = document.getElementById("save-budget");
+const budgetStatus = document.getElementById("budget-status");
+const budgetProgress = document.getElementById("budget-progress-bar");
+const budgetMessage = document.getElementById("budget-message");
+
+let monthlyBudget = Number(localStorage.getItem("monthlyBudget")) || 0;
+
+// Calculate expenses for the current month
+function updateBudget() {
+    const now = new Date();
+
+    const monthlyExpenses = transactions
+        .filter(t => {
+            const transactionDate = new Date(t.date + "T00:00:00");
+
+            return t.type === "expense" &&
+                transactionDate.getMonth() === now.getMonth() &&
+                transactionDate.getFullYear() === now.getFullYear();
+        })
+        .reduce((sum, t) => sum + t.amount, 0);
+
+    if (monthlyBudget <= 0) {
+        budgetStatus.textContent = "No budget set yet";
+        budgetProgress.style.width = "0%";
+        budgetMessage.textContent = "Set a budget to track your spending.";
+        return;
+    }
+
+    const percentage = (monthlyExpenses / monthlyBudget) * 100;
+    const remaining = monthlyBudget - monthlyExpenses;
+
+    budgetInput.value = monthlyBudget;
+
+    budgetStatus.textContent =
+        "Spent: ₹" + monthlyExpenses.toFixed(2) +
+        " / ₹" + monthlyBudget.toFixed(2);
+
+    budgetProgress.style.width = Math.min(percentage, 100) + "%";
+
+    if (remaining >= 0) {
+        budgetMessage.textContent =
+            "Remaining budget: ₹" + remaining.toFixed(2);
+        budgetProgress.style.backgroundColor = "#36bfa6";
+    } else {
+        budgetMessage.textContent =
+            "Budget exceeded by ₹" + Math.abs(remaining).toFixed(2);
+        budgetProgress.style.backgroundColor = "#e05252";
+    }
+}
+
+// Save monthly budget
+saveBudgetButton.addEventListener("click", function() {
+    const value = Number(budgetInput.value);
+
+    if (!Number.isFinite(value) || value <= 0) {
+        alert("Please enter a valid monthly budget.");
+        return;
+    }
+
+    monthlyBudget = value;
+
+    localStorage.setItem("monthlyBudget", monthlyBudget);
+
+    updateBudget();
+
+    alert("Monthly budget saved successfully!");
+});
+
+// Update budget whenever dashboard changes
+const originalUpdateDashboard = updateDashboard;
+
+updateDashboard = function() {
+    originalUpdateDashboard();
+    updateBudget();
+};
+
+// Load saved budget
+updateBudget();
+
