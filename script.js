@@ -60,8 +60,6 @@ function updateSummary() {
 
 // Display transaction history
 function displayTransactions() {
-
-function displayTransactions() {
     transactionList.replaceChildren();
 
     const searchTerm = searchInput.value.toLowerCase().trim();
