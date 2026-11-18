@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Smart Expense Tracker</h1>
+        <p>Take control of your money, one expense at a time.</p>
+    </header>
+
+    <main class="container">
+
+        <section class="summary">
+            <div class="card">
+                <h3>Total Income</h3>
+                <p id="total-income">₹0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Expenses</h3>
+                <p id="total-expenses">₹0</p>
+            </div>
+
+            <div class="card">
+                <h3>Available Balance</h3>
+                <p id="balance">₹0</p>
+            </div>
+        </section>
+
+        <section class="transaction-form">
+            <h2>Add New Transaction</h2>
+
+            <form id="expense-form">
+                <input type="text" id="description"
+                    placeholder="Transaction description" required>
+
+                <input type="number" id="amount"
+                    placeholder="Amount in ₹" min="0.01"
+                    step="0.01" required>
+
+                <select id="type">
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+
+                <select id="category">
+                    <option value="Food">Food</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Education">Education</option>
+                    <option value="Bills">Bills</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <input type="date" id="date" required>
+
+                <button type="submit">Add Transaction</button>
+            </form>
+        </section>
+
+        <section class="transactions">
+            <h2>Transaction History</h2>
+
+            <div id="transaction-list">
+                <p>No transactions yet. Add your first transaction!</p>
+            </div>
+        </section>
+
+        <section class="charts">
+            <h2>Expense Overview</h2>
+            <canvas id="expense-chart"></canvas>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Smart Expense Tracker | Built with ❤️</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
