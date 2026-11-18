@@ -309,3 +309,31 @@ updateDashboard = function() {
 // Load saved budget
 updateBudget();
 
+// EXPORT TRANSACTIONS TO CSV
+
+function exportTransactions() {
+    if (transactions.length === 0) {
+        alert("No transactions available to export.");
+        return;
+    }
+
+    let csv = "Description,Amount,Type,Category,Date\n";
+
+    transactions.forEach(t => {
+        csv += `"${t.description}",${t.amount},"${t.type}","${t.category}","${t.date}"\n`;
+    });
+
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "my-transactions.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
